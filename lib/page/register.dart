@@ -4,7 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:cap_pro/page/login.dart';
 
-import '../controller/signup_con.dart';
+import 'package:cap_pro/controller/controller.dart';
 
 
 
@@ -36,7 +36,7 @@ class _RegisterViewState extends State<RegisterView> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 40,
               ),
               Form(
@@ -46,18 +46,18 @@ class _RegisterViewState extends State<RegisterView> {
                     const SizedBox(
                       height: 10,
                     ),
-                    SizedBox(height: 30),
+                    const SizedBox(height: 30),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20.0),
                       child: Container(
-                        child: Text(
+                        alignment: Alignment.centerLeft,
+                        child: const Text(
                           "Email Address",
                           style: TextStyle(
                             fontSize: 17,
                             color: Colors.black,
                           ),
                         ),
-                        alignment: Alignment.centerLeft,
                       ),
                     ),
                     SizedBox(height: 10),
@@ -99,18 +99,18 @@ class _RegisterViewState extends State<RegisterView> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20.0),
                       child: Container(
-                        child: Text(
+                        alignment: Alignment.centerLeft,
+                        child: const Text(
                           "Nama Lengkap",
                           style: TextStyle(
                             fontSize: 17,
                             color: Colors.black,
                           ),
                         ),
-                        alignment: Alignment.centerLeft,
                       ),
                     ),
                     SizedBox(height: 10),
@@ -156,14 +156,14 @@ class _RegisterViewState extends State<RegisterView> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20.0),
                       child: Container(
-                        child: Text(
+                        alignment: Alignment.centerLeft,
+                        child: const Text(
                           "Password",
                           style: TextStyle(
                             fontSize: 17,
                             color: Colors.black,
                           ),
                         ),
-                        alignment: Alignment.centerLeft,
                       ),
                     ),
                     SizedBox(height: 10),
@@ -205,21 +205,21 @@ class _RegisterViewState extends State<RegisterView> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20.0),
                       child: Container(
-                        child: Text(
+                        alignment: Alignment.centerLeft,
+                        child: const Text(
                           "Repeat Password",
                           style: TextStyle(
                             fontSize: 17,
                             color: Colors.black,
                           ),
                         ),
-                        alignment: Alignment.centerLeft,
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10.0),
                       child: Container(
@@ -260,7 +260,15 @@ class _RegisterViewState extends State<RegisterView> {
                     ),
                     SizedBox(height: 30),
                     InkWell(
-                      onTap: () async {
+                      child: MaterialButton(
+                        minWidth: double.infinity,
+                        height: 60,
+                        color: Color(0xff0095FF),
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50),
+                        ),
+                        onPressed: () async {
                         if (_formState.currentState!.validate()) {
                           print("Validation Success");
                           print("email : " + email);
@@ -274,43 +282,31 @@ class _RegisterViewState extends State<RegisterView> {
                           print("Validation Error");
                         }
                       },
-                       child: Container(
-                        margin: const EdgeInsets.symmetric(
-                          horizontal: 10,
+                        child: const Text(
+                          "Login", style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18,
+                          color: Colors.white,
+
                         ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SizedBox(width: 125),
-                            Text(
-                              "Register",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                  fontSize: 20),
-                            ),
-                          ],
                         ),
-                        height: 60,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                            color: Colors.blue,
-                            borderRadius: BorderRadius.circular(15)),
+
                       ),
+
                     ),
                     SizedBox(height: 20),
                     Row(
                       
                       children: [
-                        Text(
+                        const Text(
                           'Sudah punya akun?',
                           style: TextStyle(fontSize: 15, color: Colors.black),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
                         GestureDetector(
-                          child: Text(
+                          child: const Text(
                             'Login',
                             style: TextStyle(
                                 color: Color.fromARGB(255, 141, 20, 206),

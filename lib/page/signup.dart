@@ -4,7 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:cap_pro/page/login.dart';
 
-import '../controller/signup_con.dart';
+import '../controller/controller.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage ({super.key});

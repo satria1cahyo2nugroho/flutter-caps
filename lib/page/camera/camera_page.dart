@@ -40,11 +40,6 @@ class _CameraPageState extends State<CameraPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Camera Test',
-        ),
-      ),
       body: Center(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
