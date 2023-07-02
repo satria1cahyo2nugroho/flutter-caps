@@ -13,6 +13,11 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  late String email;
+  late String password;
+
+  final _formState = GlobalKey<FormState>();
+
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
@@ -20,48 +25,53 @@ class _LoginPageState extends State<LoginPage> {
     final String email = _emailController.text;
     final String password = _passwordController.text;
 
-    final http.Response response = await http.post(
-      'https://10.137.105.81:5000/sigin' as Uri ,
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(<String, String>{
-        'email': email,
-        'password': password,
-      }),
+    final response = await http.post(
+      Uri.parse('http://192.168.0.107:5000/signin'),
+      body: jsonEncode({'email': email, 'password': password}),
+      headers: {'Content-Type': 'application/json'},
     );
 
     if (response.statusCode == 200) {
-      final String token = jsonDecode(response.body)['token'];
-      // Use the token for subsequent API calls
+      // ignore: unused_local_variable
+      final Map<String, dynamic> responseData = json.decode(response.body);
+      // ignore: use_build_context_synchronously
+      await Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => convexbottombar())); 
     } else {
-      // Handle login error
+      final Map<String, dynamic> errorData = json.decode(response.body);
+      // ignore: unused_local_variable
+      final String errorMessage = errorData['message'];
+      // TODO: Display login error message
     }
   }
 
+  bool passVisible = false;
+  @override
+  void initState() {
+    super.initState();
+    passVisible = true;
+  }
 
-
-
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        elevation: 0,
-        brightness: Brightness.light,
-        backgroundColor: Colors.white,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(Icons.arrow_back_ios,
-          size: 20,
-          color: Colors.black,),
-
-
-        ),
-      ),
       body: Container(
+        margin: const EdgeInsets.symmetric(horizontal:10, vertical:20),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 5,
+              ),
+              Form(
+                key: _formState,
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 5,
+                    ),
+      SizedBox(
         height: MediaQuery.of(context).size.height,
         width: double.infinity,
         child: Column(
@@ -70,32 +80,127 @@ class _LoginPageState extends State<LoginPage> {
             Expanded(child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                Column(
-                  children: <Widget>[
-                    const Text("Login",
-                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),),
-                    const SizedBox(height: 20,),
-                    Text("Login to your account",
-                    style: TextStyle(
-                      fontSize: 15,
-                    color:Colors.grey[700]),)
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 40),
-                  child: Column(
-                    children: <Widget>[
-                      inputFile(
-                      label: "Email"),
-                     inputFile(
-                     label: "password", obscureText: true)
-                    ],
-                  ),
-                ),
+                const SizedBox(height: 1),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                      child: Container(
+                        alignment: Alignment.centerLeft,
+                        child: const Text(
+                          "Email Address",
+                          style: TextStyle(
+                            fontSize: 17,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                    ),
+                const SizedBox(height: 1),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                      child: Container(
+                        padding: const EdgeInsets.all(7),
+                        decoration: BoxDecoration(
+                          color: Colors.grey[200],
+                          border: Border.all(color: Colors.white),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 20.0),
+                          child: Column(
+                            children: [
+                              TextFormField(
+                                textInputAction: TextInputAction.done,
+                                obscureText: false,
+                                controller: _emailController,
+                                onChanged: (value) {
+                                  setState(() {
+                                    email = value;
+                                  });
+                                },
+                                validator: ((value) {
+                                  if (value == '') {
+                                    return "Mohon isi terlebih dahulu!";
+                                  }
+                                }),
+                                decoration: const InputDecoration(
+                                  icon: Icon(Icons.email),
+                                  border: InputBorder.none,
+                                  hintText: 'Masukan Email..',
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 30),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                      child: Container(
+                        alignment: Alignment.centerLeft,
+                        child: const Text(
+                          "Masukan Password",
+                          style: TextStyle(
+                            fontSize: 17,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                    ),
+                const SizedBox(height: 10),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                      child: Container(
+                        padding: const EdgeInsets.all(7),
+                        decoration: BoxDecoration(
+                          color: Colors.grey[200],
+                          border: Border.all(color: Colors.white),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 20.0),
+                          child: Column(
+                            children: [
+                              TextFormField(
+                                textInputAction: TextInputAction.done,
+                                obscureText: true,
+                                controller: _passwordController,
+                                onChanged: (value) {
+                                  setState(() {
+                                    password = value;
+                                  });
+                                },
+                                validator: ((value) {
+                                  if (value == '') {
+                                    return "Mohon isi terlebih dahulu!";
+                                  }
+                                }),
+                                decoration: const InputDecoration(
+                                  icon:  Icon(Icons.password),
+                                  border: InputBorder.none,
+                                  hintText: 'Masukan Password..',
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                //Padding(
+                 // padding: const EdgeInsets.symmetric(horizontal: 40),
+                 // child: Column(
+                  //  children: <Widget>[
+                   //   inputFile(
+                   //   label: "Email"),
+                    // inputFile(
+                    // label: "password", obscureText: true)
+                   // ],
+                  //),
+               // ),
                   Padding(padding:
                   const EdgeInsets.symmetric(horizontal: 40),
                   child: Container(
-                      padding: EdgeInsets.only(top: 3, left: 3),
+                      padding: const EdgeInsets.only(top: 3, left: 3),
                       decoration:
                         BoxDecoration(
                           borderRadius: BorderRadius.circular(50),
@@ -106,16 +211,12 @@ class _LoginPageState extends State<LoginPage> {
                             right: BorderSide(color: Colors.black),
 
                           )
-
-
-
                         ),
                       child: MaterialButton(
                         minWidth: double.infinity,
                         height: 60,
                         onPressed: (){
-                          //_login(); 
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=> convexbottombar()));
+                          _login();
                         } ,
                         color: Color(0xff0095FF),
                         elevation: 0,
@@ -134,30 +235,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                   ),
-                  const SizedBox(height:10),
-                  MaterialButton(
-                    minWidth: double.infinity,
-                    height: 60,
-                    onPressed: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=> const RegisterView()));
-                    },
-                    color: Color(0xff0095FF),
-                    elevation: 0,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50)
-                    ),
-                    child: const Text(
-                      "dont have account? clik this",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 12
-                      ),
-                    ),
-                  ),
-
-
-                Container(
+                   Container(
                   padding: EdgeInsets.only(top: 100),
                   height: 200,
                   decoration: const BoxDecoration(
@@ -168,16 +246,55 @@ class _LoginPageState extends State<LoginPage> {
 
                   ),
                 ),
-
-
-                
-
-
+                   const SizedBox(height: 10),
+                    InkWell(
+                      onTap:
+                      () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => RegisterView()));
+                      },
+                      child: Container(
+                        margin: EdgeInsets.symmetric(vertical: 20),
+                        padding: EdgeInsets.all(15),
+                        alignment: Alignment.bottomCenter,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            Text(
+                              'dont have a account ?',
+                              style: TextStyle(
+                                  fontSize: 13, fontWeight: FontWeight.w600),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              'Register',
+                              style: TextStyle(
+                                  color: Color(0xff14279B),
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w600),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               ],
-            ))
-          ],
-        ),
-      ),
+            )
+    )
+                  ]
+  )
+      
+  )
+]
+ )
+ ) 
+ )
     );
   }
 

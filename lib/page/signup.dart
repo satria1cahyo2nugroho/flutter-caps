@@ -4,7 +4,11 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:cap_pro/page/login.dart';
 
-import '../controller/controller.dart';
+//import '../controller/controller.dart';
+
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
 
 class SignupPage extends StatefulWidget {
   const SignupPage ({super.key});
@@ -24,7 +28,38 @@ class _RegisterViewState extends State<SignupPage> {
   final textControllerPassword = TextEditingController();
   final textControllerRePassword = TextEditingController();
 
+ Future<void> _signup() async {
+    final String name = textControllerName.text;
+    final String email = textControllerEmail.text;
+    final String password = textControllerPassword.text;
+    final String re_password = textControllerRePassword.text;
 
+    final response = await http.post(
+      Uri.parse('http://192.168.0.107:5000/signup'),
+      body: jsonEncode({ 'email': email,'name':name, 'password': password, 're_password': re_password}),
+      headers: {'Content-Type': 'application/json'},
+    );
+
+    if (response.statusCode == 201) {
+      // ignore: unused_local_variable
+      final Map<String, dynamic> responseData = json.decode(response.body);
+      // ignore: use_build_context_synchronously
+      await Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => const LoginPage())); 
+    } else {
+      final Map<String, dynamic> errorData = json.decode(response.body);
+      // ignore: unused_local_variable
+      final String errorMessage = errorData['message'];
+      // TODO: Display login error message
+    }
+  }
+
+  bool passVisible = false;
+  @override
+  void initState() {
+    super.initState();
+    passVisible = true;
+  }
 
  @override
   Widget build(BuildContext context) {
@@ -67,9 +102,9 @@ class _RegisterViewState extends State<SignupPage> {
                       child: Container(
                         padding: const EdgeInsets.all(7),
                         decoration: BoxDecoration(
-                          color: Colors.grey[200],
+                          color: Colors.grey[100],
                           border: Border.all(color: Colors.white),
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(20),
                         ),
                         child: Padding(
                           padding: const EdgeInsets.only(left: 20.0),
@@ -120,9 +155,9 @@ class _RegisterViewState extends State<SignupPage> {
                       child: Container(
                         padding: const EdgeInsets.all(7),
                         decoration: BoxDecoration(
-                          color: Colors.grey[200],
+                          color: Colors.grey[100],
                           border: Border.all(color: Colors.white),
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(20),
                         ),
                         child: Padding(
                           padding: const EdgeInsets.only(left: 20.0),
@@ -173,12 +208,12 @@ class _RegisterViewState extends State<SignupPage> {
                       child: Container(
                         padding: const EdgeInsets.all(7),
                         decoration: BoxDecoration(
-                          color: Colors.grey[200],
+                          color: Colors.grey[100],
                           border: Border.all(color: Colors.white),
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(20),
                         ),
                         child: Padding(
-                          padding: EdgeInsets.only(left: 20.0),
+                          padding: const EdgeInsets.only(left: 20.0),
                           child: Column(
                             children: [
                               TextFormField(
@@ -195,8 +230,8 @@ class _RegisterViewState extends State<SignupPage> {
                                     return "Mohon isi terlebih dahulu!";
                                   }
                                 }),
-                                decoration: InputDecoration(
-                                  icon: new Icon(Icons.password),
+                                decoration: const InputDecoration(
+                                  icon: Icon(Icons.password),
                                   border: InputBorder.none,
                                   hintText: 'Masukan Password..',
                                 ),
@@ -226,9 +261,9 @@ class _RegisterViewState extends State<SignupPage> {
                       child: Container(
                         padding: const EdgeInsets.all(7),
                         decoration: BoxDecoration(
-                          color: Colors.grey[200],
+                          color: Colors.grey[100],
                           border: Border.all(color: Colors.white),
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(20),
                         ),
                         child: Padding(
                           padding: EdgeInsets.only(left: 20.0),
@@ -261,20 +296,42 @@ class _RegisterViewState extends State<SignupPage> {
                     ),
                     const SizedBox(height: 30),
                     InkWell(
-                      onTap: () async {
-                        if (_formState.currentState!.validate()) {
-                          print("Validation Success");
-                          print("email : " + email);
-                          print("name : " + name);
-
-                          print("password : " + password);
-                          print("re_password : " + re_password);
-                          await HttpService.flutter_register(
-                              email, name, password, re_password, context);
-                        } else {
-                          print("Validation Error");
-                        }
+                      child: MaterialButton(
+                        minWidth: double.infinity,
+                        height: 60,
+                        color: Colors.blue,
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50),
+                        ),
+                        onPressed: () async {
+                          _signup();
                       },
+                      child: const Text(
+                      "Sign up",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 18
+                      ),
+                    ),
+//                    const SizedBox(height: 30),
+//                    InkWell(
+ //                     onTap: () async {
+//                        if (_formState.currentState!.validate()) {
+//                          print("Validation Success");
+//                          print("email : " + email);
+//                          print("name : " + name);
+//
+//                          print("password : " + password);
+//                          print("re_password : " + re_password);
+//                          await HttpService.flutter_register(
+//                              email, name, password, re_password, context);
+//                        } else {
+//                          print("Validation Error");
+//                        }
+//                      },
+                    ),
                     ),
  //             Row(
  //               mainAxisAlignment: MainAxisAlignment.center,
@@ -287,7 +344,7 @@ class _RegisterViewState extends State<SignupPage> {
    //               )
    //             ],              
    //           ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -302,7 +359,7 @@ class _RegisterViewState extends State<SignupPage> {
                           child: const Text(
                             'Login',
                             style: TextStyle(
-                                color: Color.fromARGB(255, 59, 191, 200),
+                                color: Colors.blue,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 15),
                           ),
@@ -316,7 +373,7 @@ class _RegisterViewState extends State<SignupPage> {
                     ),
 
 
-            ],
+                ],
 
           ),
 

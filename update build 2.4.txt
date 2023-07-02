@@ -1,0 +1,25 @@
+update build 2.4
+list update
+
+
+- signup succesfull (sometimes connection time's out)
+- fix some minor eror
+- add some fixing in some page code
+- 
+
+list eror
+
+- profil stilll not update
+- http sevices sometime eror
+- paramater not correct
+- sdk kotlin and flutter not support each other (current kotlin 1.6.x
+  Flutter 3.7.8 & Tools • Dart 2.19.5 • DevTools 2.20.1)
+- post code eror 401
+- login sometime eror 400
+- app sometimes crash after builf in .apk format
+- signup sometime conection time's out
+- build gradle sometime's eror
+
+
+
+

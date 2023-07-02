@@ -1,16 +1,12 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:cap_pro/page/login.dart';
-// import 'package:etilang_apps/dashboard.dart';
 
 class HttpService{
   static final _client = http.Client();
 
-  static var _registerUrl = Uri.parse('https://192.168.0.103:5000/signup');
+  static final _registerUrl = Uri.parse('http://192.168.100.164:5000/signup');
 
   static flutter_register(email, name, password, re_password, context) async {
     http.Response response = await _client.post(_registerUrl, body: {
@@ -32,8 +28,11 @@ class HttpService{
             context, MaterialPageRoute(builder: (context) => const LoginPage()));
       }
     } else {
-      await EasyLoading.showError(
-          "Error Code : ${response.statusCode.toString()}");
+      //final Map<String, dynamic> errorData = json.decode(response.body);
+      // ignore: unused_local_variable
+      //final String errorMessage = errorData['message'];
+      //await EasyLoading.showError(
+      //    "Error Code : ${response.statusCode.toString()}");
     }
   }
 

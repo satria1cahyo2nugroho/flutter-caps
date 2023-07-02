@@ -44,6 +44,7 @@ dependencies:
   image_picker: ^0.8.9
   camera_camera: ^2.0.2
   flutter_svg: ^2.0.5
+  shared_preferences: ^2.1.2
 
 dev_dependencies:
 
@@ -54,19 +55,38 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
   flutter_native_splash: ^2.2.19
+  flutter_launcher_icons: ^0.13.1
   flutter_test:
     sdk: flutter
 
 flutter_native_splash:
   color: "#FFFAFA"
-  image: assets/p_splash.png
+  image: assets/smok.png
 
   android_12:
-    image: assets/p_splash.png
+    image: assets/smok.png
 
     # Splash screen background color.
     color: "#FFFFFF"
 
+#launcher icon
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/smok.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+  web:
+    generate: true
+    image_path: "assets/smok.png"
+    background_color: "#hexcode"
+    theme_color: "#hexcode"
+  windows:
+    generate: true
+    image_path: "assets/smok.png"
+    icon_size: 48 # min:48, max:256, default: 48
+  macos:
+    generate: true
+    image_path: "assets/smok.png"
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 # The following section is specific to Flutter packages.
@@ -79,7 +99,7 @@ flutter:
 
   assets:
     - assets/
-    - assets/th.jpg
+    - assets/icons/
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

@@ -60,7 +60,7 @@ class _RegisterViewState extends State<RegisterView> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10.0),
                       child: Container(
@@ -88,8 +88,8 @@ class _RegisterViewState extends State<RegisterView> {
                                     return "Mohon isi terlebih dahulu!";
                                   }
                                 }),
-                                decoration: InputDecoration(
-                                  icon: new Icon(Icons.email),
+                                decoration: const InputDecoration(
+                                  icon: Icon(Icons.email),
                                   border: InputBorder.none,
                                   hintText: 'Masukan Email..',
                                 ),
@@ -152,7 +152,7 @@ class _RegisterViewState extends State<RegisterView> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20.0),
                       child: Container(
@@ -166,7 +166,7 @@ class _RegisterViewState extends State<RegisterView> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10.0),
                       child: Container(
@@ -194,8 +194,8 @@ class _RegisterViewState extends State<RegisterView> {
                                     return "Mohon isi terlebih dahulu!";
                                   }
                                 }),
-                                decoration: InputDecoration(
-                                  icon: new Icon(Icons.password),
+                                decoration: const InputDecoration(
+                                  icon: Icon(Icons.password),
                                   border: InputBorder.none,
                                   hintText: 'Masukan Password..',
                                 ),
@@ -230,7 +230,7 @@ class _RegisterViewState extends State<RegisterView> {
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: Padding(
-                          padding: EdgeInsets.only(left: 20.0),
+                          padding: const EdgeInsets.only(left: 20.0),
                           child: Column(
                             children: [
                               TextFormField(
@@ -258,7 +258,7 @@ class _RegisterViewState extends State<RegisterView> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 30),
+                    const SizedBox(height: 30),
                     InkWell(
                       child: MaterialButton(
                         minWidth: double.infinity,
@@ -283,7 +283,7 @@ class _RegisterViewState extends State<RegisterView> {
                         }
                       },
                         child: const Text(
-                          "Login", style: TextStyle(
+                          "SignUp", style: TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 18,
                           color: Colors.white,
@@ -294,7 +294,7 @@ class _RegisterViewState extends State<RegisterView> {
                       ),
 
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Row(
                       
                       children: [

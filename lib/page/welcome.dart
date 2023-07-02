@@ -86,7 +86,7 @@ class pagehome extends StatelessWidget {
                     minWidth: double.infinity,
                     height: 60,
                     onPressed: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=> const RegisterView()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=> const SignupPage()));
 
                     },
                     color: Color(0xff0095FF),
