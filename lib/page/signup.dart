@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:cap_pro/page/login.dart';
+//import 'package:cap_pro/page/login.dart';
+import 'package:cap_pro/page/log.dart';
 
 //import '../controller/controller.dart';
 
@@ -35,7 +36,7 @@ class _RegisterViewState extends State<SignupPage> {
     final String re_password = textControllerRePassword.text;
 
     final response = await http.post(
-      Uri.parse('http://192.168.0.107:5000/signup'),
+      Uri.parse('http://192.168.56.217:5000/signup'),
       body: jsonEncode({ 'email': email,'name':name, 'password': password, 're_password': re_password}),
       headers: {'Content-Type': 'application/json'},
     );
@@ -102,8 +103,8 @@ class _RegisterViewState extends State<SignupPage> {
                       child: Container(
                         padding: const EdgeInsets.all(7),
                         decoration: BoxDecoration(
-                          color: Colors.grey[100],
-                          border: Border.all(color: Colors.white),
+                          color: Colors.white,
+                          border: Border.all(color: Colors.black),
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Padding(
@@ -155,8 +156,8 @@ class _RegisterViewState extends State<SignupPage> {
                       child: Container(
                         padding: const EdgeInsets.all(7),
                         decoration: BoxDecoration(
-                          color: Colors.grey[100],
-                          border: Border.all(color: Colors.white),
+                          color: Colors.white,
+                          border: Border.all(color: Colors.black),
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Padding(
@@ -208,8 +209,8 @@ class _RegisterViewState extends State<SignupPage> {
                       child: Container(
                         padding: const EdgeInsets.all(7),
                         decoration: BoxDecoration(
-                          color: Colors.grey[100],
-                          border: Border.all(color: Colors.white),
+                          color: Colors.white,
+                          border: Border.all(color: Colors.black),
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Padding(
@@ -261,8 +262,8 @@ class _RegisterViewState extends State<SignupPage> {
                       child: Container(
                         padding: const EdgeInsets.all(7),
                         decoration: BoxDecoration(
-                          color: Colors.grey[100],
-                          border: Border.all(color: Colors.white),
+                          color: Colors.white,
+                          border: Border.all(color: Colors.black),
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Padding(

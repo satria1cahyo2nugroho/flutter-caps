@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:cap_pro/page/login.dart';
+//import 'package:cap_pro/page/login.dart';
 import 'package:cap_pro/page/signup.dart';
 import 'package:cap_pro/page/register.dart';
+import 'package:cap_pro/page/log.dart';
 
 
 
